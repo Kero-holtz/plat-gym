@@ -10,6 +10,7 @@ Complete production handoff release.
 - Documented the existing private GitHub deployment source.
 - Kept production free of demo accounts, sample operational data, secrets, and database files.
 - Verified the Vercel upload exclusion set still builds successfully.
+- Removed generated Next.js route-type dependence so a fresh checkout type-checks before its first build.
 
 ## 0.1.0 — 2026-09-11
 

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next"
+import type { ReactNode } from "react"
 import "@fontsource-variable/manrope"
 import "@fontsource/barlow-condensed/600.css"
 import "@fontsource/barlow-condensed/700.css"
@@ -23,7 +24,7 @@ export const viewport: Viewport = {
   themeColor: "#191c22",
 }
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="h-full">
       <body className="min-h-full">
