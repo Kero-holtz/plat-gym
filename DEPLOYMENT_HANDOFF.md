@@ -30,26 +30,25 @@ Expected result: lint/typecheck/build pass, 4 unit tests pass, 7 Playwright scen
 
 The E2E suite creates only `data/plat-gym-test.db`. Never upload that file.
 
-## 3. Create and push the repository
+## 3. Use the existing private repository
 
-The ZIP intentionally excludes `.git`, secrets, dependencies, databases, build output, and test reports.
+The clean source is already published at:
 
-```bash
-git init -b main
-git add .
-git commit -m "Deploy PLAT GYM operations MVP"
-git remote add origin YOUR_PRIVATE_REPOSITORY_URL
-git push -u origin main
+```text
+https://github.com/Kero-holtz/plat-gym
 ```
 
-Before pushing, confirm:
+Clone that private repository from the owner's GitHub account and deploy its `main` branch. Do not create a second repository. The ZIP is a portable backup and intentionally excludes `.git`, secrets, dependencies, databases, build output, and test reports.
+
+Before deploying or pushing a necessary fix, confirm:
 
 ```bash
 git status --short
+git remote -v
 git ls-files | grep -E '(^|/)(\.env|data/|node_modules/|\.next/)' && echo "STOP: sensitive/generated file tracked" || true
 ```
 
-A private repository is recommended.
+Any necessary deployment correction must be committed to this repository and pushed to `main` after the complete validation suite passes.
 
 ## 4. Create the Supabase project
 

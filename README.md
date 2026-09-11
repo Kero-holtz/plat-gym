@@ -10,6 +10,7 @@ Production-ready gym reception software for members, visits, membership expiry, 
 - Unit tests: **4/4 passing**
 - End-to-end workflows: **7/7 passing**
 - Production database migration: **ready**
+- Private source repository: **[Kero-holtz/plat-gym](https://github.com/Kero-holtz/plat-gym)**
 - Hosted Supabase and Vercel deployment: **left to the operator**
 
 No demo staff accounts, production users, local databases, or secrets are included. Automated tests use an isolated SQLite database and test-only identities that are never enabled by the production configuration.

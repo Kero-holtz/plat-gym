@@ -1,12 +1,12 @@
 # Prompt to send to the deployment assistant
 
-I am giving you `PLAT-GYM-production-ready.zip`. You are responsible for the remaining external deployment work only. The application itself is already implemented and validated. Work inside my existing GitHub, Supabase, and Vercel accounts/organizations; do not create personal accounts on my behalf.
+I am giving you `PLAT-GYM-production-ready.zip`. The same clean source is already in the private repository `https://github.com/Kero-holtz/plat-gym`. You are responsible for the remaining external deployment work only. The application itself is already implemented and validated. Work inside my existing GitHub, Supabase, and Vercel accounts/organizations; do not create personal accounts on my behalf and do not create a second code repository.
 
 ## Goal
 
 Publish PLAT GYM as a secure production application using:
 
-- a private GitHub repository
+- the existing private GitHub repository `Kero-holtz/plat-gym`
 - a new clean Supabase PostgreSQL/Auth project (or the existing project I explicitly identify)
 - Vercel
 
@@ -40,7 +40,7 @@ Read `README.md` and follow `DEPLOYMENT_HANDOFF.md` exactly before changing anyt
 
    Expected: lint/typecheck/build pass, 4 unit tests pass, and 7 E2E tests pass.
 
-2. Create a private GitHub repository in my chosen account/organization, commit the clean source, and push `main`. Verify no secret/generated files are tracked.
+2. Clone and use the existing private repository `https://github.com/Kero-holtz/plat-gym` and its `main` branch. Do not create another repository. Verify no secret/generated files are tracked. Commit and push only a necessary, validated deployment fix.
 
 3. Create/link the Supabase project and apply the migration with `supabase db push` or run the complete migration once in Supabase SQL Editor. Confirm all eight public tables, foreign keys, indexes, RLS policies, grants, and `trainer_booking_slot_unique` exist. Confirm only the four membership plans contain rows.
 
