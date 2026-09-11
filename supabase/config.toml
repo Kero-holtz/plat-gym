@@ -63,9 +63,9 @@ enabled = true
 schema_paths = []
 
 [db.seed]
-# Production-shaped Supabase resets intentionally contain no demo data.
+# Production-shaped Supabase resets intentionally contain no sample data.
 enabled = false
-# Demo data exists only in the isolated local SQLite fallback.
+# Automated-test fixtures exist only in an isolated SQLite database.
 
 [db.network_restrictions]
 # Enable management of network restrictions.

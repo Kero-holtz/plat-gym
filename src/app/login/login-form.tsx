@@ -5,14 +5,14 @@ import { useRouter } from "next/navigation"
 import { DumbbellIcon, EyeIcon, EyeOffIcon, LockKeyholeIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { apiFetch } from "@/lib/client-api"
 import type { StaffUser } from "@/lib/domain"
 
-export function LoginForm({ demoMode }: { demoMode: boolean }) {
+export function LoginForm() {
   const router = useRouter()
-  const [email, setEmail] = useState(demoMode ? "admin@platgym.eg" : "")
-  const [password, setPassword] = useState(demoMode ? "PlatGym2026!" : "")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
@@ -33,17 +33,6 @@ export function LoginForm({ demoMode }: { demoMode: boolean }) {
     } finally {
       setSubmitting(false)
     }
-  }
-
-  function fillDemo(role: "manager" | "receptionist") {
-    if (role === "manager") {
-      setEmail("admin@platgym.eg")
-      setPassword("PlatGym2026!")
-    } else {
-      setEmail("reception@platgym.eg")
-      setPassword("Reception2026!")
-    }
-    setError(null)
   }
 
   return (
@@ -130,21 +119,6 @@ export function LoginForm({ demoMode }: { demoMode: boolean }) {
               </Button>
             </FieldGroup>
           </form>
-
-          {demoMode ? (
-            <div className="mt-7 rounded-xl border bg-card p-4">
-              <p className="text-sm font-semibold">Demo accounts</p>
-              <FieldDescription className="mt-1">Choose an access level, then sign in.</FieldDescription>
-              <div className="mt-3 grid grid-cols-2 gap-2">
-                <Button type="button" variant="outline" onClick={() => fillDemo("manager")}>
-                  Manager
-                </Button>
-                <Button type="button" variant="outline" onClick={() => fillDemo("receptionist")}>
-                  Receptionist
-                </Button>
-              </div>
-            </div>
-          ) : null}
         </div>
       </section>
     </main>

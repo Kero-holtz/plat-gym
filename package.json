@@ -12,7 +12,7 @@
     "test:e2e": "playwright test",
     "test": "npm run test:unit && npm run test:e2e",
     "db:bootstrap:supabase": "tsx scripts/bootstrap-supabase.ts",
-    "verify": "tsx scripts/verify-local-data.ts"
+    "verify": "tsx scripts/verify-test-data.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

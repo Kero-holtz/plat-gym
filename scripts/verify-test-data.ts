@@ -3,7 +3,7 @@ import Database from "better-sqlite3"
 import { addDays, format, parseISO } from "date-fns"
 import { formatInTimeZone, fromZonedTime } from "date-fns-tz"
 
-const dbPath = path.resolve(process.env.SQLITE_PATH ?? "./data/plat-gym.db")
+const dbPath = path.resolve(process.env.SQLITE_PATH ?? "./data/plat-gym-test.db")
 const db = new Database(dbPath, { readonly: true })
 const zone = "Africa/Cairo"
 const today = formatInTimeZone(new Date(), zone, "yyyy-MM-dd")
@@ -34,7 +34,7 @@ const doubleBookings = db.prepare(`
   having count(*) > 1
 `).all()
 
-if (snapshot.members < 20) throw new Error(`Expected at least 20 demo members, found ${snapshot.members}`)
+if (snapshot.members < 20) throw new Error(`Expected at least 20 isolated test members, found ${snapshot.members}`)
 if (foreignKeyProblems.length) throw new Error(`Foreign-key problems: ${JSON.stringify(foreignKeyProblems)}`)
 if (doubleBookings.length) throw new Error(`Double bookings: ${JSON.stringify(doubleBookings)}`)
 

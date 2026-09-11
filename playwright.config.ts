@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test"
+import { TEST_STAFF } from "./tests/e2e/test-credentials"
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -22,8 +23,12 @@ export default defineConfig({
     timeout: 180_000,
     env: {
       SQLITE_PATH: "./data/plat-gym-test.db",
-      SEED_DEMO_DATA: "true",
-      SESSION_SECRET: "playwright-only-secret-plat-gym-2026",
+      PLAT_GYM_TEST_MODE: "true",
+      TEST_MANAGER_EMAIL: TEST_STAFF.manager.email,
+      TEST_MANAGER_PASSWORD: TEST_STAFF.manager.password,
+      TEST_RECEPTIONIST_EMAIL: TEST_STAFF.receptionist.email,
+      TEST_RECEPTIONIST_PASSWORD: TEST_STAFF.receptionist.password,
+      SESSION_SECRET: "playwright-only-session-secret-plat-gym-2026",
       SESSION_COOKIE_SECURE: "false",
     },
   },

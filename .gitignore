@@ -41,7 +41,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# PLAT GYM local relational demo database
+# PLAT GYM local automated-test database
 /data/*.db
 /data/*.db-shm
 /data/*.db-wal
@@ -50,3 +50,5 @@ next-env.d.ts
 /blob-report/
 /artifacts/
 /supabase/.temp/
+/*.zip
+/*.sha256

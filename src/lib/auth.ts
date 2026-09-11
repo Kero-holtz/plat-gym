@@ -12,10 +12,10 @@ const SESSION_DURATION_SECONDS = 60 * 60 * 12
 
 function sessionKey(): Uint8Array {
   const configured = process.env.SESSION_SECRET
-  if (!configured && process.env.NODE_ENV === "production") {
-    throw new Error("SESSION_SECRET is required in production")
+  if (!configured || configured.length < 32) {
+    throw new Error("SESSION_SECRET with at least 32 characters is required for local or automated-test authentication.")
   }
-  return new TextEncoder().encode(configured ?? "plat-gym-local-demo-secret-change-me")
+  return new TextEncoder().encode(configured)
 }
 
 async function localUserFromCookie(): Promise<StaffUser | null> {
@@ -64,8 +64,18 @@ async function supabaseUser(): Promise<StaffUser | null> {
   }
 }
 
+function assertLocalAuthAllowed(): void {
+  if (process.env.VERCEL === "1" && process.env.PLAT_GYM_TEST_MODE !== "true") {
+    throw new Error(
+      "Supabase Auth is not configured. NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY are required on Vercel.",
+    )
+  }
+}
+
 export async function getCurrentUser(): Promise<StaffUser | null> {
-  return isSupabaseConfigured() ? supabaseUser() : localUserFromCookie()
+  if (isSupabaseConfigured()) return supabaseUser()
+  assertLocalAuthAllowed()
+  return localUserFromCookie()
 }
 
 export async function loginStaff(
@@ -89,6 +99,7 @@ export async function loginStaff(
     return { user, error: null }
   }
 
+  assertLocalAuthAllowed()
   const row = await getDb()
     .selectFrom("staff_users")
     .select(["id", "name", "email", "role", "password_hash", "active"])
@@ -131,6 +142,7 @@ export async function logoutStaff(): Promise<void> {
     await supabase.auth.signOut()
     return
   }
+  assertLocalAuthAllowed()
   ;(await cookies()).delete(COOKIE_NAME)
 }
 

@@ -26,6 +26,10 @@ function createDatabase(): Kysely<DatabaseSchema> {
     })
   }
 
+  if (process.env.VERCEL === "1" && process.env.PLAT_GYM_TEST_MODE !== "true") {
+    throw new Error("DATABASE_URL is required on Vercel. SQLite is available only for local development and automated tests.")
+  }
+
   return new Kysely<DatabaseSchema>({
     dialect: new SqliteDialect({ database: openLocalDatabase() }),
   })

@@ -3,11 +3,17 @@ import Database from "better-sqlite3"
 import { addDays, format, parseISO, subMonths } from "date-fns"
 import { fromZonedTime } from "date-fns-tz"
 import { expect, test, type Page } from "@playwright/test"
+import { TEST_STAFF } from "./test-credentials"
 
 async function login(page: Page, role: "manager" | "receptionist" = "manager") {
   await page.goto("/login")
-  await page.getByLabel("Email address").fill(role === "manager" ? "admin@platgym.eg" : "reception@platgym.eg")
-  await page.getByLabel("Password", { exact: true }).fill(role === "manager" ? "PlatGym2026!" : "Reception2026!")
+  const email = page.getByLabel("Email address")
+  const password = page.getByLabel("Password", { exact: true })
+  await expect(email).toHaveValue("")
+  await expect(password).toHaveValue("")
+  await expect(page.getByText("Demo accounts")).toHaveCount(0)
+  await email.fill(TEST_STAFF[role].email)
+  await password.fill(TEST_STAFF[role].password)
   await page.getByRole("button", { name: "Sign in", exact: true }).click()
   await expect(page).toHaveURL(/\/dashboard$/)
   await expect(page.getByRole("heading", { name: "Today's activity" })).toBeVisible()

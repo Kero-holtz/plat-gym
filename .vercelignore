@@ -1,0 +1,16 @@
+.git
+.env*
+!.env.example
+.next
+node_modules
+data
+test-results
+playwright-report
+blob-report
+artifacts
+design-system
+tests
+playwright.config.ts
+vitest.config.mts
+*.zip
+*.sha256

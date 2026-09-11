@@ -2,12 +2,25 @@ import { createClient, type User } from "@supabase/supabase-js"
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+const adminEmail = process.env.BOOTSTRAP_ADMIN_EMAIL
+const adminName = process.env.BOOTSTRAP_ADMIN_NAME
 const adminPassword = process.env.BOOTSTRAP_ADMIN_PASSWORD
+const receptionistEmail = process.env.BOOTSTRAP_RECEPTIONIST_EMAIL
+const receptionistName = process.env.BOOTSTRAP_RECEPTIONIST_NAME
 const receptionistPassword = process.env.BOOTSTRAP_RECEPTIONIST_PASSWORD
 
-if (!url || !serviceRoleKey || !adminPassword || !receptionistPassword) {
+if (
+  !url ||
+  !serviceRoleKey ||
+  !adminEmail ||
+  !adminName ||
+  !adminPassword ||
+  !receptionistEmail ||
+  !receptionistName ||
+  !receptionistPassword
+) {
   console.error(
-    "Required: NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, BOOTSTRAP_ADMIN_PASSWORD, BOOTSTRAP_RECEPTIONIST_PASSWORD",
+    "Required: NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, BOOTSTRAP_ADMIN_EMAIL, BOOTSTRAP_ADMIN_NAME, BOOTSTRAP_ADMIN_PASSWORD, BOOTSTRAP_RECEPTIONIST_EMAIL, BOOTSTRAP_RECEPTIONIST_NAME, BOOTSTRAP_RECEPTIONIST_PASSWORD",
   )
   process.exit(1)
 }
@@ -64,15 +77,15 @@ async function ensureStaff(input: {
 }
 
 await ensureStaff({
-  email: process.env.BOOTSTRAP_ADMIN_EMAIL ?? "admin@platgym.eg",
+  email: adminEmail,
   password: adminPassword,
-  name: process.env.BOOTSTRAP_ADMIN_NAME ?? "PLAT GYM Manager",
+  name: adminName,
   role: "manager",
 })
 await ensureStaff({
-  email: process.env.BOOTSTRAP_RECEPTIONIST_EMAIL ?? "reception@platgym.eg",
+  email: receptionistEmail,
   password: receptionistPassword,
-  name: process.env.BOOTSTRAP_RECEPTIONIST_NAME ?? "PLAT GYM Reception",
+  name: receptionistName,
   role: "receptionist",
 })
 

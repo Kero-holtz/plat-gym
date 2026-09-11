@@ -74,7 +74,10 @@ export function openLocalDatabase(): Database.Database {
   sqlite.pragma("foreign_keys = ON")
   sqlite.pragma("busy_timeout = 5000")
   createSchema(sqlite)
-  if (process.env.SEED_DEMO_DATA !== "false") seedDemoData(sqlite)
+  if (process.env.PLAT_GYM_TEST_MODE === "true") {
+    if (process.env.VERCEL) throw new Error("PLAT_GYM_TEST_MODE must never be enabled on Vercel.")
+    seedTestData(sqlite)
+  }
   return sqlite
 }
 
@@ -183,22 +186,39 @@ function createSchema(sqlite: Database.Database): void {
   `)
 }
 
-function seedDemoData(sqlite: Database.Database): void {
-  const alreadySeeded = sqlite.prepare("SELECT value FROM schema_meta WHERE key = 'demo_seed_v1'").get()
+function requiredTestValue(name: string): string {
+  const value = process.env[name]?.trim()
+  if (!value) throw new Error(`${name} is required when PLAT_GYM_TEST_MODE=true.`)
+  return value
+}
+
+function seedTestData(sqlite: Database.Database): void {
+  const alreadySeeded = sqlite.prepare("SELECT value FROM schema_meta WHERE key = 'test_seed_v1'").get()
   if (alreadySeeded) return
 
   const seed = sqlite.transaction(() => {
     const createdAt = nowIso()
     const today = todayCairo()
-    const managerId = "staff-manager"
-    const receptionistId = "staff-reception"
+    const managerId = "staff-test-manager"
+    const receptionistId = "staff-test-reception"
+    const managerEmail = requiredTestValue("TEST_MANAGER_EMAIL")
+    const managerPassword = requiredTestValue("TEST_MANAGER_PASSWORD")
+    const receptionistEmail = requiredTestValue("TEST_RECEPTIONIST_EMAIL")
+    const receptionistPassword = requiredTestValue("TEST_RECEPTIONIST_PASSWORD")
 
     const insertStaff = sqlite.prepare(`
       INSERT INTO staff_users (id, auth_user_id, name, email, role, password_hash, active, created_at)
       VALUES (?, NULL, ?, ?, ?, ?, 1, ?)
     `)
-    insertStaff.run(managerId, "Mona Nabil", "admin@platgym.eg", "manager", hashSync("PlatGym2026!", 10), createdAt)
-    insertStaff.run(receptionistId, "Ahmed Samy", "reception@platgym.eg", "receptionist", hashSync("Reception2026!", 10), createdAt)
+    insertStaff.run(managerId, "Automated Test Manager", managerEmail, "manager", hashSync(managerPassword, 10), createdAt)
+    insertStaff.run(
+      receptionistId,
+      "Automated Test Receptionist",
+      receptionistEmail,
+      "receptionist",
+      hashSync(receptionistPassword, 10),
+      createdAt,
+    )
 
     const insertType = sqlite.prepare(`
       INSERT INTO membership_types (id, name, duration_months, price, active, created_at)
@@ -351,7 +371,7 @@ function seedDemoData(sqlite: Database.Database): void {
       )
     })
 
-    sqlite.prepare("INSERT INTO schema_meta (key, value) VALUES ('demo_seed_v1', ?)").run(createdAt)
+    sqlite.prepare("INSERT INTO schema_meta (key, value) VALUES ('test_seed_v1', ?)").run(createdAt)
   })
 
   seed()
