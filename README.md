@@ -30,6 +30,7 @@ See [`DEPLOYMENT_HANDOFF.md`](DEPLOYMENT_HANDOFF.md) for the exact deployment pr
 - [`docs/PROJECT_HISTORY.md`](docs/PROJECT_HISTORY.md) — sanitized implementation history
 - [`docs/FILE_MAP.md`](docs/FILE_MAP.md) — repository map
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — safe change workflow
+- [`CHANGELOG.md`](CHANGELOG.md) — release history
 
 ## Clean login preview
 

@@ -18,6 +18,7 @@
 | `docs/PROJECT_HISTORY.md` | Sanitized implementation and validation history |
 | `docs/FILE_MAP.md` | This repository map |
 | `CONTRIBUTING.md` | Safe branch, migration, test, UI, and security workflow |
+| `CHANGELOG.md` | Release history |
 | `design-system/plat-gym/MASTER.md` | Authoritative UI design system |
 | `docs/screenshots/login-*.png` | Clean desktop/mobile production-login references |
 
