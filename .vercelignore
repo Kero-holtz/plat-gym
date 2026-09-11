@@ -8,8 +8,13 @@ test-results
 playwright-report
 blob-report
 artifacts
+.github
 design-system
+docs
+scripts
+supabase
 tests
+*.md
 playwright.config.ts
 vitest.config.mts
 *.zip

@@ -17,6 +17,29 @@ No demo staff accounts, production users, local databases, or secrets are includ
 
 See [`DEPLOYMENT_HANDOFF.md`](DEPLOYMENT_HANDOFF.md) for the exact deployment procedure. [`ASSISTANT_DEPLOYMENT_PROMPT.md`](ASSISTANT_DEPLOYMENT_PROMPT.md) is a ready-to-forward prompt for the person performing the deployment.
 
+## Project documentation
+
+- [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) — full sanitized product and implementation context
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — runtime and data flow
+- [`docs/DATABASE.md`](docs/DATABASE.md) — ER model, data dictionary, indexes, and RLS
+- [`docs/API_REFERENCE.md`](docs/API_REFERENCE.md) — authenticated endpoint reference
+- [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md) — runtime/bootstrap/test variable boundaries
+- [`docs/OPERATIONS_GUIDE.md`](docs/OPERATIONS_GUIDE.md) — manager and receptionist instructions
+- [`docs/VALIDATION_REPORT.md`](docs/VALIDATION_REPORT.md) — test/build/security evidence
+- [`docs/DECISIONS_AND_LIMITATIONS.md`](docs/DECISIONS_AND_LIMITATIONS.md) — scope and architecture decisions
+- [`docs/PROJECT_HISTORY.md`](docs/PROJECT_HISTORY.md) — sanitized implementation history
+- [`docs/FILE_MAP.md`](docs/FILE_MAP.md) — repository map
+- [`CONTRIBUTING.md`](CONTRIBUTING.md) — safe change workflow
+
+## Clean login preview
+
+The production release has blank credential fields and no demo-account controls.
+
+<p>
+  <img src="docs/screenshots/login-desktop.png" alt="PLAT GYM desktop staff login" width="68%" />
+  <img src="docs/screenshots/login-mobile.png" alt="PLAT GYM mobile staff login" width="27%" />
+</p>
+
 ## Implemented product
 
 - **Dashboard:** total members, Cairo-day visits, memberships expiring within 14 days, today's non-cancelled PT bookings, paid revenue in EGP, quick actions, expiring-member list, latest check-ins, and today's PT schedule.
